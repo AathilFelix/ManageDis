@@ -6,6 +6,9 @@ import UploadForm from "@/components/upload-form";
 import AgentGraph from "@/components/agent-graph";
 import Dashboard from "@/components/dashboard";
 import LiveFeed from "@/components/live-feed";
+import StatsBar from "@/components/stats-bar";
+import AlertBroadcast from "@/components/alert-broadcast";
+import Link from "next/link";
 import type { AnalysisResult, AgentState, CommanderResult, DecisionLogEntry } from "@/lib/types";
 import type { FeedItem } from "@/lib/feed-types";
 
@@ -190,6 +193,20 @@ export default function Home() {
             <span>·</span>
             <span>Parallel Processing</span>
           </div>
+          <div className="flex items-center justify-center gap-3 mt-4 print:hidden">
+            <Link
+              href="/dashboard"
+              className="inline-flex items-center gap-2 px-4 py-2 bg-blue-600/20 hover:bg-blue-600/30 border border-blue-600/30 rounded-xl text-sm text-blue-400 transition-colors"
+            >
+              🌍 Live Global Monitor
+            </Link>
+            <Link
+              href="/report"
+              className="inline-flex items-center gap-2 px-4 py-2 bg-red-600/20 hover:bg-red-600/30 border border-red-600/30 rounded-xl text-sm text-red-400 transition-colors"
+            >
+              🆘 Citizen SOS Portal
+            </Link>
+          </div>
         </motion.header>
 
         <AnimatePresence mode="wait">
@@ -204,6 +221,21 @@ export default function Home() {
               animate={{ opacity: 1 }}
               className="space-y-6"
             >
+              {/* Live Stats Bar */}
+              {result && (
+                <StatsBar
+                  peopleAtRisk={result.vision.estimatedPeopleAtRisk}
+                  resourcesDeployed={
+                    (result.resources.personnel?.reduce((s, p) => s + p.available, 0) || 0) +
+                    (result.resources.vehicles?.reduce((s, v) => s + v.available, 0) || 0)
+                  }
+                  agentsComplete={agents.filter((a) => a.status === "complete").length}
+                  totalAgents={agents.length}
+                  responseTime={totalElapsed}
+                  activeIncidents={1}
+                />
+              )}
+
               {/* Agent Graph */}
               <div className="max-w-md mx-auto">
                 <AgentGraph agents={agents} totalElapsed={totalElapsed} />
@@ -249,6 +281,11 @@ export default function Home() {
                     </div>
                   </div>
                 </div>
+              )}
+
+              {/* Alert Broadcasting */}
+              {result && (
+                <AlertBroadcast severity={result.vision.severity} />
               )}
 
               {/* Mobile Live Feed */}

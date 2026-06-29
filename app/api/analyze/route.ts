@@ -12,8 +12,8 @@ export const maxDuration = 60;
 export async function POST(req: NextRequest) {
   const { image, location, situation } = await req.json();
 
-  if (!image || !location) {
-    return new Response(JSON.stringify({ error: "Image and location are required" }), {
+  if (!location) {
+    return new Response(JSON.stringify({ error: "Location is required" }), {
       status: 400,
       headers: { "Content-Type": "application/json" },
     });

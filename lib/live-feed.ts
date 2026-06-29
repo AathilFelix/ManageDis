@@ -11,6 +11,7 @@ const FLOOD_FEED: Omit<FeedItem, "id" | "timestamp">[] = [
   { source: "news", text: "BREAKING: Over 500 people stranded as main bridge submerges. Military columns on standby. Weather service predicts continued heavy rainfall for next 12 hours.", severity: "critical", author: "Breaking News" },
   { source: "whatsapp", text: "School ground completely flooded. Children evacuated to upper floors of nearby apartment. Need food and water supplies urgently.", severity: "warning", author: "Local Resident" },
   { source: "twitter", text: "Rescue boat needed URGENTLY in residential zone! Elderly people and children stuck on rooftops. Water still rising. #FloodRelief", severity: "critical", author: "@rescue_volunteer" },
+  { source: "whatsapp", text: "River bank has broken. Water entering from all sides. At least 40 families trapped.", severity: "critical", author: "Local Resident", language: "Hindi", originalText: "नदी का किनारा टूट गया है। चारों तरफ से पानी आ रहा है। कम से कम 40 परिवार फंसे हुए हैं।" },
   { source: "news", text: "Military deploys 3 rescue columns with inflatable boats. National disaster response teams airlifted from neighboring region.", severity: "info", author: "Reuters" },
   { source: "ndma", text: "Evacuation order expanded to include Zones B and C. Relief camps set up at Community Center and Public School.", severity: "critical", author: "Emergency Ops Center" },
   { source: "whatsapp", text: "Power supply cut off in entire neighborhood. Mobile network very weak. We managed to reach upper floors. At least 30 families here.", severity: "warning", author: "Community Group" },
@@ -18,6 +19,7 @@ const FLOOD_FEED: Omit<FeedItem, "id" | "timestamp">[] = [
   { source: "news", text: "Dam upstream releasing excess water. Downstream areas warned of 2-3 feet additional rise in water level within 2 hours.", severity: "critical", author: "AP News" },
   { source: "ndma", text: "Helicopter rescue operations commenced. Priority: rooftop evacuations in worst-hit zones. Emergency hotline activated.", severity: "info", author: "Emergency Management" },
   { source: "twitter", text: "Food packets and drinking water being distributed at relief camp near transit station. Volunteers needed! #FloodRelief", severity: "info", author: "@ngo_volunteer" },
+  { source: "whatsapp", text: "The electric lines fell into the water. Very dangerous. Do not leave the house. Stay on the upper floors.", severity: "critical", author: "Community Group", language: "Tamil", originalText: "மின்சார கம்பிகள் தண்ணீரில் விழுந்துவிட்டன. மிகவும் ஆபத்து. வீட்டை விட்டு வெளியே வராதீர்கள். மேல் தளங்களில் இருங்கள்." },
 ];
 
 const WILDFIRE_FEED: Omit<FeedItem, "id" | "timestamp">[] = [
@@ -26,6 +28,7 @@ const WILDFIRE_FEED: Omit<FeedItem, "id" | "timestamp">[] = [
   { source: "news", text: "Reuters: Wildfire has consumed over 2,000 hectares. Multiple structures confirmed destroyed. Firefighting aircraft deployed.", severity: "critical", author: "Reuters" },
   { source: "whatsapp", text: "Forest department says fire jumped the firebreak near the highway. Alternate route via old mill road still clear.", severity: "warning", author: "Community Alert" },
   { source: "twitter", text: "Air quality index over 500. People with respiratory issues must leave the area. Local hospital overwhelmed. #AirQuality #Wildfire", severity: "critical", author: "@health_officer" },
+  { source: "whatsapp", text: "Fire has reached the village outskirts. All families must evacuate now. Go towards the highway.", severity: "critical", author: "Village Head", language: "Spanish", originalText: "El fuego ha llegado a las afueras del pueblo. Todas las familias deben evacuar ahora. Vayan hacia la autopista." },
   { source: "news", text: "BBC: Satellite imagery shows fire advancing at 3 km/hour. Wind shift expected in 4 hours could change direction toward town center.", severity: "critical", author: "BBC" },
   { source: "ndma", text: "3 additional fire stations mobilized. Army engineering corps creating emergency firebreaks. Aerial water bombing in progress.", severity: "info", author: "State Emergency Ops" },
   { source: "whatsapp", text: "Farm animals stranded near the south valley. Volunteers with trucks needed to help evacuate livestock before fire reaches.", severity: "warning", author: "Farmer's Group" },
@@ -39,6 +42,7 @@ const EARTHQUAKE_FEED: Omit<FeedItem, "id" | "timestamp">[] = [
   { source: "twitter", text: "Building collapsed on main street. We can hear people screaming under the rubble. Need heavy machinery NOW! #Earthquake #Rescue", severity: "critical", author: "@eyewitness" },
   { source: "news", text: "Al Jazeera: Hospital partially collapsed. Patients being treated in parking lot. International aid agencies mobilizing.", severity: "critical", author: "Al Jazeera" },
   { source: "whatsapp", text: "Gas leak detected in our building. Entire block evacuated. Can smell gas strongly. Fire department not responding to calls.", severity: "critical", author: "Building Resident" },
+  { source: "twitter", text: "Building has completely collapsed. People are screaming under the rubble. Heavy machinery needed immediately. Please help!", severity: "critical", author: "@citizen", language: "Turkish", originalText: "Bina tamamen çöktü. İnsanlar enkazın altında bağırıyor. Acil ağır makine lazım. Lütfen yardım edin!" },
   { source: "usgs", text: "USGS: Aftershock detected — Magnitude 5.1. Residents warned: weakened structures at risk of further collapse.", severity: "warning", author: "USGS" },
   { source: "twitter", text: "Road cracked open near the bridge. Giant fissure blocking all traffic. Emergency vehicles can't get through! #RoadDamage", severity: "critical", author: "@traffic_alert" },
   { source: "news", text: "CNN: Death toll feared in hundreds. Multiple building collapses confirmed. UN dispatching emergency response team.", severity: "critical", author: "CNN" },
