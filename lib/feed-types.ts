@@ -8,6 +8,8 @@ export interface FeedItem {
   severity: "info" | "warning" | "critical";
   author?: string;
   coordinates?: { lat: number; lng: number };
+  language?: string;
+  originalText?: string;
 }
 
 export const SOURCE_CONFIG: Record<FeedSource, { icon: string; label: string; color: string }> = {

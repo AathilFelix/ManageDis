@@ -9,13 +9,15 @@ interface LiveFeedProps {
   disasterType: string;
   onReanalyze: (reports: FeedItem[]) => void;
   isReanalyzing: boolean;
+  autoUpdate?: boolean;
 }
 
-export default function LiveFeed({ disasterType, onReanalyze, isReanalyzing }: LiveFeedProps) {
+export default function LiveFeed({ disasterType, onReanalyze, isReanalyzing, autoUpdate = false }: LiveFeedProps) {
   const [items, setItems] = useState<FeedItem[]>([]);
   const [unprocessed, setUnprocessed] = useState<FeedItem[]>([]);
   const scrollRef = useRef<HTMLDivElement>(null);
   const abortRef = useRef<AbortController | null>(null);
+  const autoTriggered = useRef(false);
 
   useEffect(() => {
     abortRef.current = new AbortController();
@@ -55,6 +57,15 @@ export default function LiveFeed({ disasterType, onReanalyze, isReanalyzing }: L
     startFeed();
     return () => { abortRef.current?.abort(); };
   }, [disasterType]);
+
+  useEffect(() => {
+    if (autoUpdate && unprocessed.length >= 5 && !isReanalyzing && !autoTriggered.current) {
+      autoTriggered.current = true;
+      onReanalyze([...unprocessed]);
+      setUnprocessed([]);
+      setTimeout(() => { autoTriggered.current = false; }, 10000);
+    }
+  }, [autoUpdate, unprocessed, isReanalyzing, onReanalyze]);
 
   const handleReanalyze = useCallback(() => {
     onReanalyze([...unprocessed]);
@@ -150,7 +161,21 @@ export default function LiveFeed({ disasterType, onReanalyze, isReanalyzing }: L
                   <div className="flex-1" />
                   <div className={`w-2 h-2 rounded-full ${severityDot[item.severity] || severityDot.info}`} />
                 </div>
-                <p className="text-sm text-zinc-300 leading-relaxed">{item.text}</p>
+                {item.language && item.originalText && (
+                  <div className="bg-zinc-900/80 rounded-lg px-2 py-1.5 border border-zinc-700/50">
+                    <div className="flex items-center gap-1.5 mb-1">
+                      <span className="text-[10px] bg-indigo-500/20 text-indigo-400 px-1.5 py-0.5 rounded font-medium">
+                        {item.language}
+                      </span>
+                      <span className="text-[10px] text-zinc-600">→ EN (auto-translated)</span>
+                    </div>
+                    <p className="text-xs text-zinc-500 italic leading-relaxed">{item.originalText}</p>
+                  </div>
+                )}
+                <p className="text-sm text-zinc-300 leading-relaxed">
+                  {item.language && <span className="text-indigo-400 text-xs mr-1">[Translated]</span>}
+                  {item.text}
+                </p>
                 <p className="text-[10px] text-zinc-600">
                   {new Date(item.timestamp).toLocaleTimeString()}
                 </p>

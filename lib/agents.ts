@@ -40,6 +40,14 @@ Analyze the image and situation carefully. Return ONLY valid JSON with this exac
   "confidence": number between 0 and 100 representing your confidence in this assessment
 }`;
 
+  if (!imageBase64) {
+    const response = await chatCompletion(
+      systemPrompt,
+      `Analyze this disaster based on the situation report. Location: ${location}. Report: ${situation}. Use your expertise to assess the disaster type, severity, hazards, and risks based on this information.`
+    );
+    return safeParse<VisionResult>(response);
+  }
+
   try {
     const userContent: Array<{ type: "text"; text: string } | { type: "image_url"; image_url: { url: string } }> = [
       {
