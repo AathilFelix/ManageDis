@@ -1,7 +1,7 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  serverExternalPackages: ["@cerebras/cerebras_cloud_sdk"],
 };
 
 export default nextConfig;
